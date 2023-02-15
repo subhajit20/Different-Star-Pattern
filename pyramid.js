@@ -1,24 +1,56 @@
-let i = 0;
-let collumn = 3;
-let row = 0;
-let totalrow = 3
-let higheststar = (2*totalrow-1)-1
-let mid = Math.floor(higheststar/2)+1
+console.log("********** PYRAMID **********\n");
 
+let i = 1;
+let row = 1;
 let pattern = '';
-while(i <= collumn-1 && row <= totalrow-1){
-    if(i != mid){
-        pattern = '*\t';
-        i = i + 1;
-    }if(i > collumn-1){
-        i = 0;
-        pattern = pattern+'\n'
-        row = row + 1;
-    }else if(i == mid){
-        pattern = pattern+'*\t';
-        i = i + 1
-    }
+let highpoint = 5;
+let numofstar = (2*row)-1;
+let mid = Math.ceil(highpoint/2);
+let start = '';
+let round = 3
 
-    i = i + 1;
+while(i <= highpoint && row <= round){
+    if(row == 1){
+        pattern = pattern+" ";
+        i+=1;
+        if(i == mid){
+            pattern = pattern+"*"
+            i = i + 1
+        }else if(i > highpoint && row <= round){
+            pattern = pattern+'\n'
+            i = 1;
+            row = row + 1;
+            numofstar = (2*row)-1;
+            if(highpoint % numofstar == 0){
+                start = (highpoint/numofstar)+1;
+            }else{
+                start =  Math.floor(highpoint/numofstar)+1
+            }
+        }
+    }else{
+        if(row < round){
+            if(i < start || i > numofstar+1){
+                pattern = pattern+" ";
+                i+=1;
+                if(i > highpoint && row <= round){
+                    pattern = pattern+'\n'
+                    i = 1;
+                    row = row + 1;
+                    numofstar = (2*row)-1;
+                    if(highpoint % numofstar == 0){
+                        start = (highpoint/numofstar)+1;
+                    }else{
+                        start =  Math.floor(highpoint/numofstar)+1
+                    }
+                }
+            }else if(i >= start && i <= numofstar+1){
+                pattern = pattern+"*";
+                i+=1;
+            }
+        }else{
+            pattern = pattern+'*';
+            i = i + 1
+        }
+    }
 }
 console.log(pattern)
